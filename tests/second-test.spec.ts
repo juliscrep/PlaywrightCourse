@@ -290,8 +290,8 @@ import { test, Browser, Page, expect } from '@playwright/test';
       })
     })
 
-    // Anotación 'only' para que solo se ejecute este test
-    test.only ('Validando dentro de un popup', async ({ page }) => {
+    // Anotación 'only' para que solo se ejecute este test: test.only
+    test('Validando dentro de un popup', async ({ page }) => {
       await test.step('Dado que navego al sandbox', async () => {
         await page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
       })
@@ -354,7 +354,7 @@ import { test, Browser, Page, expect } from '@playwright/test';
 
     //Ejemplo de como saltearnos la ejecución de un test a traves de una condición 
 
-    test.only('Puedo seleccionar y deseleccionar un checkbox en el @Sandbox', async ({ page, browserName }) => {
+    test('Puedo seleccionar y deseleccionar un checkbox en el @Sandbox', async ({ page, browserName }) => {
       test.skip(browserName === 'chromium', 'No anda este test en Chrome todavía');
       await test.step(`Dado que navego al sandbox de automation de Free Range Testers`, async () => {
         await page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
