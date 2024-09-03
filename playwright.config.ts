@@ -25,28 +25,31 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    // baseURL: 'http://127.0.0.1:3000',
+    // baseURL: 'http://127.0.0.1:3000', si uso la misma url puedo definirla aca y no colocarla en mis test
     //testIdAttribute: 'test-id',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    trace: 'on',
   },
 
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
+      name: 'Computadora',
+      testMatch: "third-test.spec.ts",
       use: { ...devices['Desktop Chrome'] },
     },
-
+ 
     {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      name: 'Iphone',
+      testMatch: "third-test.spec.ts",
+      use: { ...devices['iPhone 12'] },
     },
-
+ 
     {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
+      name: 'iPad',
+      testMatch: "third-test.spec.ts",
+      use: { ...devices['iPad (gen 7)'] },
+    }
 
     /* Test against mobile viewports. */
     // {
