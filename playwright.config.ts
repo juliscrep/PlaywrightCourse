@@ -49,7 +49,19 @@ export default defineConfig({
       name: 'iPad',
       testMatch: "third-test.spec.ts",
       use: { ...devices['iPad (gen 7)'] },
+    },
+    {
+      name: 'API Tests',
+      testMatch: "APITests/**/*",
+      use: { 
+        baseURL: 'https://api.github.com',
+        extraHTTPHeaders: {
+          'Accept': 'application/vnd.github.v3+json',
+          'Authorization':   `token ${process.env.API_TOKEN}`,
+        }
+      },
     }
+
 
     /* Test against mobile viewports. */
     // {
