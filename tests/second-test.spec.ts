@@ -290,8 +290,8 @@ import { test, Browser, Page, expect } from '@playwright/test';
       })
     })
 
-    // Anotación 'only' para que solo se ejecute este test: test.only
-    test('Validando dentro de un popup', async ({ page }) => {
+    // Anotación 'only' para que solo se ejecute este test
+    test.only('Validando dentro de un popup', async ({ page }) => {
       await test.step('Dado que navego al sandbox', async () => {
         await page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
       })
