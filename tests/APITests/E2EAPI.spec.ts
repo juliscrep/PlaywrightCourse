@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { describe } from 'node:test';
  
 const REPO = 'PlaywrightCourse';
 const USER = 'juliscrep';
@@ -35,4 +36,34 @@ test('El último issue creado es el primero en la lista', async ({ page }) => {
     await page.goto(`https://github.com/${USER}/${REPO}/issues`);
     const firstIssue = page.locator(`a[data-hovercard-type='issue']`).first();
     await expect(firstIssue).toHaveText( `[Feature] en repositorio "${REPO}"`);
+});
+
+test('Puedo modificar los valores de un feature', async ({ page }) => {
+    // Obtiene la lista de issues
+    const issues = await apiContext.get(`/repos/${USER}/${REPO}/issues`);
+    const issueData = await issues.json();
+
+    // Toma el número del primer issue
+    const issueNumber = issueData[0].number;
+
+    // Obtiene la fecha actual
+    const currentDate = new Date();
+    const formattedDate = currentDate.toISOString().split('T')[0]; // Formato YYYY-MM-DD
+
+    // Modifica el issue
+    const response = await apiContext.patch(`/repos/${USER}/${REPO}/issues/${issueNumber}`, {
+        data: {
+            title: `[Feature] modificado en repositorio "${REPO}"`,
+            body: `Se modificó el feature por "${USER}" el día ${formattedDate}`
+        }
+    });
+
+    expect(response.ok()).toBeTruthy();
+
+    // Verifica el cambio en la interfaz
+    await page.goto(`https://github.com/${USER}/${REPO}/issues`);
+    
+    // Busca el issue modificado en la lista de issues
+    const issueLink = page.locator(`a[data-hovercard-type='issue'][href$='/${issueNumber}']`);
+    await expect(issueLink).toHaveText(`[Feature] modificado en repositorio "${REPO}"`);
 });
