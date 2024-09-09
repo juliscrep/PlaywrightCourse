@@ -7,7 +7,8 @@ export class SandboxPage {
     readonly botonIDDinamico: Locator;
     readonly campoTexto : Locator;
     readonly deportesDropdown: Locator;
-    
+    readonly diaDeLaSemanaDropdown: Locator;
+    readonly diaDeLaSemana: Locator;
  
     constructor(page: Page) {
         this.page = page;
@@ -16,6 +17,8 @@ export class SandboxPage {
         this.botonIDDinamico = page.getByRole('button', { name: 'Hacé click para generar un ID dinámico y mostrar el elemento oculto' });
         this.campoTexto = page.getByPlaceholder('Ingresá texto');
         this.deportesDropdown = page.getByLabel('Dropdown');
+        this.diaDeLaSemanaDropdown = page.getByRole('button', {name: 'Día de la semana'});
+        this.diaDeLaSemana = page.getByRole('link', {name: 'Martes'});
         
     }
  
@@ -41,6 +44,11 @@ export class SandboxPage {
 
     async seleccionarDeporteDropdown(deporte){
         await this.deportesDropdown.selectOption(deporte);
+    }
+
+    async seleccionarDiaDeLaSemana(){
+        await this.diaDeLaSemanaDropdown.click();
+        await this.diaDeLaSemana.click();
     }
  
 }

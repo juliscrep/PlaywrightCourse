@@ -96,6 +96,20 @@ import { SandboxPage } from './Pages/sandboxPage';
             })     
             
         })
+
+        test('Puedo seleccionar un dia del Dropdown dias de la semana', async ({ page }) => {
+           
+            await test.step(`Dado que navego al sandbox de automation de Free Range Testers`, async () => {
+              await page.goto('');
+      
+            });
+      
+            await test.step('Puedo seleccionar un dia de la semana del dropdown', async () => {
+              await sandbox.seleccionarDiaDeLaSemana();
+                   
+            })     
+            
+          })
     })
  
 })();
