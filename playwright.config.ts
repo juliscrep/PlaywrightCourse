@@ -60,7 +60,13 @@ export default defineConfig({
           'Authorization':   `token ${process.env.API_TOKEN}`,
         }
       },
-    }
+    },
+    {
+      name: 'POM Test',
+      testMatch: "fourth-test.spec.ts",
+      use: { baseURL:"https://thefreerangetester.github.io/sandbox-automation-testing/",
+        ...devices['Desktop Chrome'] },
+    },
 
 
     /* Test against mobile viewports. */

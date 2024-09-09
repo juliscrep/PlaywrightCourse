@@ -1,5 +1,4 @@
 import { test, expect } from '@playwright/test';
-import { describe } from 'node:test';
  
 const REPO = 'PlaywrightCourse';
 const USER = 'juliscrep';
