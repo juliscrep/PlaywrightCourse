@@ -9,6 +9,11 @@ export class SandboxPage {
     readonly deportesDropdown: Locator;
     readonly diaDeLaSemanaDropdown: Locator;
     readonly diaDeLaSemana: Locator;
+    readonly shadowDOM : Locator;
+    readonly DOMTexto: Locator;
+    readonly popupButton: Locator;
+    readonly textoPopup: Locator;
+    readonly cerrarButton: Locator;
  
     constructor(page: Page) {
         this.page = page;
@@ -19,6 +24,12 @@ export class SandboxPage {
         this.deportesDropdown = page.getByLabel('Dropdown');
         this.diaDeLaSemanaDropdown = page.getByRole('button', {name: 'Día de la semana'});
         this.diaDeLaSemana = page.getByRole('link', {name: 'Martes'});
+        this.shadowDOM = page.getByRole('heading', { name: 'Shadow DOM' });
+        this.DOMTexto = page.getByText('Este es un ejemplo de Shadow DOM para practicar automation testing.');   
+        this.popupButton = page.getByRole('button', { name: 'Mostrar popup' });
+        this.textoPopup = page.getByText('¿Viste? ¡Apareció un Pop-up!');
+        this.cerrarButton = page.getByRole('button', { name: 'Cerrar' });
+               
         
     }
  
@@ -50,5 +61,42 @@ export class SandboxPage {
         await this.diaDeLaSemanaDropdown.click();
         await this.diaDeLaSemana.click();
     }
+
+    async accederShadowDOM(){
+        await this.shadowDOM.isVisible();
+        await this.DOMTexto.isVisible();
+        
+    }
+
+    async abrirPopUp(){
+        this.popupButton.click();
+    }
+
+    async cerrarPopup(){
+        await this.cerrarButton.click();
+    }
+
+    async obtenerValoresColumnaNombres(): Promise<string[]> {
+        return await this.page.$$eval('h2:has-text("Tabla estática") + table tbody tr td:nth-child(2)', elements => 
+            elements.map(element => element.textContent?.trim() || '')
+        );
+    }
+
+    async obtenerValoresColumnaEdad(): Promise<number[]> {
+        return await this.page.$$eval('h2:has-text("Tabla estática") + table tbody tr td:nth-child(3)', elements => 
+            elements.map(element => {
+                const texto = element.textContent?.trim() || '';
+                return parseFloat(texto); // Convertir el texto en número
+            })
+        );
+    }
+
+    async obtenerValoresTablaDinamica(): Promise<string[]> {
+        return await this.page.$$eval('h2:has-text("Tabla dinámica") + table tbody tr td', elements =>
+            elements.map(element => element.textContent?.trim() || '')
+        );
+    }
+  
+
  
 }
